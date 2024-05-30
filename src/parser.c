@@ -17,8 +17,8 @@
 
 enum ts_symbol_identifiers {
   sym_content = 1,
-  anon_sym_LT_PERCENT = 2,
-  anon_sym_PERCENT_GT = 3,
+  sym_template_start = 2,
+  sym_template_end = 3,
   sym_template_content = 4,
   sym_source_file = 5,
   sym_template = 6,
@@ -28,8 +28,8 @@ enum ts_symbol_identifiers {
 static const char * const ts_symbol_names[] = {
   [ts_builtin_sym_end] = "end",
   [sym_content] = "content",
-  [anon_sym_LT_PERCENT] = "<%",
-  [anon_sym_PERCENT_GT] = "%>",
+  [sym_template_start] = "template_start",
+  [sym_template_end] = "template_end",
   [sym_template_content] = "template_content",
   [sym_source_file] = "source_file",
   [sym_template] = "template",
@@ -39,8 +39,8 @@ static const char * const ts_symbol_names[] = {
 static const TSSymbol ts_symbol_map[] = {
   [ts_builtin_sym_end] = ts_builtin_sym_end,
   [sym_content] = sym_content,
-  [anon_sym_LT_PERCENT] = anon_sym_LT_PERCENT,
-  [anon_sym_PERCENT_GT] = anon_sym_PERCENT_GT,
+  [sym_template_start] = sym_template_start,
+  [sym_template_end] = sym_template_end,
   [sym_template_content] = sym_template_content,
   [sym_source_file] = sym_source_file,
   [sym_template] = sym_template,
@@ -56,13 +56,13 @@ static const TSSymbolMetadata ts_symbol_metadata[] = {
     .visible = true,
     .named = true,
   },
-  [anon_sym_LT_PERCENT] = {
+  [sym_template_start] = {
     .visible = true,
-    .named = false,
+    .named = true,
   },
-  [anon_sym_PERCENT_GT] = {
+  [sym_template_end] = {
     .visible = true,
-    .named = false,
+    .named = true,
   },
   [sym_template_content] = {
     .visible = true,
@@ -154,10 +154,10 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
       if (lookahead != 0) ADVANCE(8);
       END_STATE();
     case 10:
-      ACCEPT_TOKEN(anon_sym_LT_PERCENT);
+      ACCEPT_TOKEN(sym_template_start);
       END_STATE();
     case 11:
-      ACCEPT_TOKEN(anon_sym_PERCENT_GT);
+      ACCEPT_TOKEN(sym_template_end);
       END_STATE();
     case 12:
       ACCEPT_TOKEN(sym_template_content);
@@ -190,8 +190,8 @@ static const TSLexMode ts_lex_modes[STATE_COUNT] = {
 static const uint16_t ts_parse_table[LARGE_STATE_COUNT][SYMBOL_COUNT] = {
   [0] = {
     [ts_builtin_sym_end] = ACTIONS(1),
-    [anon_sym_LT_PERCENT] = ACTIONS(1),
-    [anon_sym_PERCENT_GT] = ACTIONS(1),
+    [sym_template_start] = ACTIONS(1),
+    [sym_template_end] = ACTIONS(1),
   },
   [1] = {
     [sym_source_file] = STATE(6),
@@ -199,28 +199,28 @@ static const uint16_t ts_parse_table[LARGE_STATE_COUNT][SYMBOL_COUNT] = {
     [aux_sym_source_file_repeat1] = STATE(2),
     [ts_builtin_sym_end] = ACTIONS(3),
     [sym_content] = ACTIONS(5),
-    [anon_sym_LT_PERCENT] = ACTIONS(7),
+    [sym_template_start] = ACTIONS(7),
   },
   [2] = {
     [sym_template] = STATE(3),
     [aux_sym_source_file_repeat1] = STATE(3),
     [ts_builtin_sym_end] = ACTIONS(9),
     [sym_content] = ACTIONS(11),
-    [anon_sym_LT_PERCENT] = ACTIONS(7),
+    [sym_template_start] = ACTIONS(7),
   },
   [3] = {
     [sym_template] = STATE(3),
     [aux_sym_source_file_repeat1] = STATE(3),
     [ts_builtin_sym_end] = ACTIONS(13),
     [sym_content] = ACTIONS(15),
-    [anon_sym_LT_PERCENT] = ACTIONS(18),
+    [sym_template_start] = ACTIONS(18),
   },
 };
 
 static const uint16_t ts_small_parse_table[] = {
   [0] = 2,
     ACTIONS(23), 1,
-      anon_sym_LT_PERCENT,
+      sym_template_start,
     ACTIONS(21), 2,
       ts_builtin_sym_end,
       sym_content,
@@ -232,7 +232,7 @@ static const uint16_t ts_small_parse_table[] = {
       ts_builtin_sym_end,
   [16] = 1,
     ACTIONS(29), 1,
-      anon_sym_PERCENT_GT,
+      sym_template_end,
 };
 
 static const uint32_t ts_small_parse_table_map[] = {

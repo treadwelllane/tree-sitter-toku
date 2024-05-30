@@ -25,18 +25,26 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "STRING",
-          "value": "<%"
+          "type": "SYMBOL",
+          "name": "template_start"
         },
         {
           "type": "SYMBOL",
           "name": "template_content"
         },
         {
-          "type": "STRING",
-          "value": "%>"
+          "type": "SYMBOL",
+          "name": "template_end"
         }
       ]
+    },
+    "template_start": {
+      "type": "STRING",
+      "value": "<%"
+    },
+    "template_end": {
+      "type": "STRING",
+      "value": "%>"
     },
     "template_content": {
       "type": "PATTERN",
