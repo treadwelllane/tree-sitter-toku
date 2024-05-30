@@ -44,6 +44,12 @@
     "test": "tree-sitter test",
     "parse": "tree-sitter parse"
   },
+  "tree-sitter": [
+    {
+      "scope": "source.toku",
+      "file-types": [ "toku" ],
+    }
+  ],
   "eslintConfig": {
     "env": {
       "commonjs": true,
