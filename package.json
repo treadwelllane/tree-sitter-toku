@@ -44,6 +44,14 @@
     "test": "tree-sitter test",
     "parse": "tree-sitter parse"
   },
+  "tree-sitter": [
+    {
+      "scope": "source.lua.toku",
+      "file-types": [ "toku_lua" ],
+      "highlights": "queries/highlights.scm",
+      "injections": "queries/injections-lua.scm"
+    }
+  ],
   "eslintConfig": {
     "env": {
       "commonjs": true,

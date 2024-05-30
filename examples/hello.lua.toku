@@ -1,7 +1,11 @@
-something
+local M = {}
 
-<% local function ()
-  return 10
-end %>
+function M.init ()
 
-<% return "hello" %>
+  local x = 1
+
+  <% return "hello" %>
+
+end
+
+return M
