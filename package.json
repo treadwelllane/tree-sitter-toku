@@ -2,7 +2,7 @@
   "name": "tree-sitter-toku",
   "version": "0.0.1",
   "description": "Toku grammar for tree-sitter",
-  "repository": "github:tree-sitter/tree-sitter-toku",
+  "repository": "github:treadwelllane/tree-sitter-toku",
   "license": "MIT",
   "main": "bindings/node",
   "types": "bindings/node",
@@ -44,64 +44,6 @@
     "test": "tree-sitter test",
     "parse": "tree-sitter parse"
   },
-  "tree-sitter": [
-    {
-      "scope": "text.sh.toku",
-      "file-types": [ "toku" ],
-      "highlights": "queries/highlights.scm",
-      "injections": "queries/injections-bash.scm",
-      "injection-regex": "toku"
-    },
-    {
-      "scope": "text.css.toku",
-      "file-types": [ "toku" ],
-      "highlights": "queries/highlights.scm",
-      "injections": "queries/injections-css.scm",
-      "injection-regex": "toku"
-    },
-    {
-      "scope": "Dockerfile.toku",
-      "file-types": [ "toku" ],
-      "highlights": "queries/highlights.scm",
-      "injections": "queries/injections-dockerfile.scm",
-      "injection-regex": "toku"
-    },
-    {
-      "scope": "text.html.toku",
-      "file-types": [ "toku" ],
-      "highlights": "queries/highlights.scm",
-      "injections": "queries/injections-html.scm",
-      "injection-regex": "toku"
-    },
-    {
-      "scope": "text.js.toku",
-      "file-types": [ "toku" ],
-      "highlights": "queries/highlights.scm",
-      "injections": "queries/injections-javascript.scm",
-      "injection-regex": "toku"
-    },
-    {
-      "scope": "text.json.toku",
-      "file-types": [ "toku" ],
-      "highlights": "queries/highlights.scm",
-      "injections": "queries/injections-json.scm",
-      "injection-regex": "toku"
-    },
-    {
-      "scope": "Makefile.toku",
-      "file-types": [ "toku" ],
-      "highlights": "queries/highlights.scm",
-      "injections": "queries/injections-make.scm",
-      "injection-regex": "toku"
-    },
-    {
-      "scope": "text.lua.toku",
-      "file-types": [ "toku" ],
-      "highlights": "queries/highlights.scm",
-      "injections": "queries/injections-lua.scm",
-      "injection-regex": "toku"
-    }
-  ],
   "eslintConfig": {
     "env": {
       "commonjs": true,
