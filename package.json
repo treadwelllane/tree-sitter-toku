@@ -46,8 +46,102 @@
   },
   "tree-sitter": [
     {
-      "scope": "source.toku",
-      "injection-regex": "^toku$"
+      "scope": "text.sh.toku",
+      "file-types": [ "toku" ],
+      "highlights": "queries/highlights.scm",
+      "injections": "queries/injections-bash.scm",
+      "injection-regex": "toku"
+    },
+    {
+      "scope": "text.css.toku",
+      "file-types": [ "toku" ],
+      "highlights": "queries/highlights.scm",
+      "injections": "queries/injections-css.scm",
+      "injection-regex": "toku"
+    },
+    {
+      "scope": "Dockerfile.toku",
+      "file-types": [ "toku" ],
+      "highlights": "queries/highlights.scm",
+      "injections": "queries/injections-dockerfile.scm",
+      "injection-regex": "toku"
+    },
+    {
+      "scope": "text.html.toku",
+      "file-types": [ "toku" ],
+      "highlights": "queries/highlights.scm",
+      "injections": "queries/injections-html.scm",
+      "injection-regex": "toku"
+    },
+    {
+      "scope": "text.js.toku",
+      "file-types": [ "toku" ],
+      "highlights": "queries/highlights.scm",
+      "injections": "queries/injections-javascript.scm",
+      "injection-regex": "toku"
+    },
+    {
+      "scope": "text.json.toku",
+      "file-types": [ "toku" ],
+      "highlights": "queries/highlights.scm",
+      "injections": "queries/injections-json.scm",
+      "injection-regex": "toku"
+    },
+    {
+      "scope": "Makefile.toku",
+      "file-types": [ "toku" ],
+      "highlights": "queries/highlights.scm",
+      "injections": "queries/injections-make.scm",
+      "injection-regex": "toku"
+    },
+    {
+      "scope": "text.lua.toku",
+      "file-types": [ "toku" ],
+      "highlights": "queries/highlights.scm",
+      "injections": "queries/injections-lua.scm",
+      "injection-regex": "toku"
     }
-  ]
+  ],
+  "eslintConfig": {
+    "env": {
+      "commonjs": true,
+      "es2021": true
+    },
+    "extends": "google",
+    "parserOptions": {
+      "ecmaVersion": "latest",
+      "sourceType": "module"
+    },
+    "rules": {
+      "arrow-parens": "off",
+      "camel-case": "off",
+      "indent": [
+        "error",
+        2,
+        {
+          "SwitchCase": 1
+        }
+      ],
+      "max-len": [
+        "error",
+        {
+          "code": 160,
+          "ignoreComments": true,
+          "ignoreUrls": true,
+          "ignoreStrings": true
+        }
+      ],
+      "spaced-comment": [
+        "warn",
+        "always",
+        {
+          "line": {
+            "markers": [
+              "/"
+            ]
+          }
+        }
+      ]
+    }
+  }
 }
