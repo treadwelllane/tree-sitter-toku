@@ -88,8 +88,16 @@
   },
   "tree-sitter": [
     {
-      "scope": "source.toku",
-      "injection-regex": "^toku$"
+      "scope": "source.lua.toku",
+      "file-types": [ "toku" ],
+      "injections": "queries/injections-lua.scm",
+      "injection-regex": "toku"
+    },
+    {
+      "scope": "source.html.toku",
+      "file-types": [ "toku" ],
+      "injections": "queries/injections-html.scm",
+      "injection-regex": "toku"
     }
   ]
 }
