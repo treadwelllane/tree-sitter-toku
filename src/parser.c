@@ -7,7 +7,7 @@
 #define LANGUAGE_VERSION 14
 #define STATE_COUNT 8
 #define LARGE_STATE_COUNT 4
-#define SYMBOL_COUNT 9
+#define SYMBOL_COUNT 8
 #define ALIAS_COUNT 0
 #define TOKEN_COUNT 5
 #define EXTERNAL_TOKEN_COUNT 0
@@ -21,9 +21,8 @@ enum ts_symbol_identifiers {
   anon_sym_PERCENT_GT = 3,
   sym_template_content = 4,
   sym_source_file = 5,
-  sym__definition = 6,
-  sym_template = 7,
-  aux_sym_source_file_repeat1 = 8,
+  sym_template = 6,
+  aux_sym_source_file_repeat1 = 7,
 };
 
 static const char * const ts_symbol_names[] = {
@@ -33,7 +32,6 @@ static const char * const ts_symbol_names[] = {
   [anon_sym_PERCENT_GT] = "%>",
   [sym_template_content] = "template_content",
   [sym_source_file] = "source_file",
-  [sym__definition] = "_definition",
   [sym_template] = "template",
   [aux_sym_source_file_repeat1] = "source_file_repeat1",
 };
@@ -45,7 +43,6 @@ static const TSSymbol ts_symbol_map[] = {
   [anon_sym_PERCENT_GT] = anon_sym_PERCENT_GT,
   [sym_template_content] = sym_template_content,
   [sym_source_file] = sym_source_file,
-  [sym__definition] = sym__definition,
   [sym_template] = sym_template,
   [aux_sym_source_file_repeat1] = aux_sym_source_file_repeat1,
 };
@@ -73,10 +70,6 @@ static const TSSymbolMetadata ts_symbol_metadata[] = {
   },
   [sym_source_file] = {
     .visible = true,
-    .named = true,
-  },
-  [sym__definition] = {
-    .visible = false,
     .named = true,
   },
   [sym_template] = {
@@ -113,64 +106,70 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
   eof = lexer->eof(lexer);
   switch (state) {
     case 0:
-      if (eof) ADVANCE(10);
-      if (lookahead == '%') ADVANCE(2);
+      if (eof) ADVANCE(6);
+      if (lookahead == '%') ADVANCE(3);
       if (lookahead == '<') ADVANCE(1);
-      if (lookahead == 'c') ADVANCE(6);
       if (('\t' <= lookahead && lookahead <= '\r') ||
           lookahead == ' ') SKIP(0);
       END_STATE();
     case 1:
-      if (lookahead == '%') ADVANCE(12);
+      if (lookahead == '%') ADVANCE(10);
       END_STATE();
     case 2:
-      if (lookahead == '>') ADVANCE(13);
+      if (lookahead == '%') ADVANCE(10);
+      if (lookahead != 0) ADVANCE(8);
       END_STATE();
     case 3:
-      if (lookahead == 'e') ADVANCE(5);
+      if (lookahead == '>') ADVANCE(11);
       END_STATE();
     case 4:
-      if (lookahead == 'n') ADVANCE(7);
+      if (lookahead != 0 &&
+          lookahead != '%') ADVANCE(8);
       END_STATE();
     case 5:
-      if (lookahead == 'n') ADVANCE(8);
+      if (lookahead != 0 &&
+          lookahead != '>') ADVANCE(13);
       END_STATE();
     case 6:
-      if (lookahead == 'o') ADVANCE(4);
-      END_STATE();
-    case 7:
-      if (lookahead == 't') ADVANCE(3);
-      END_STATE();
-    case 8:
-      if (lookahead == 't') ADVANCE(11);
-      END_STATE();
-    case 9:
-      if (lookahead != 0 &&
-          lookahead != '>') ADVANCE(15);
-      END_STATE();
-    case 10:
       ACCEPT_TOKEN(ts_builtin_sym_end);
       END_STATE();
-    case 11:
+    case 7:
       ACCEPT_TOKEN(sym_content);
+      if (lookahead == '<') ADVANCE(2);
+      if (('\t' <= lookahead && lookahead <= '\r') ||
+          lookahead == ' ') ADVANCE(7);
+      if (lookahead != 0) ADVANCE(8);
       END_STATE();
-    case 12:
+    case 8:
+      ACCEPT_TOKEN(sym_content);
+      if (lookahead == '<') ADVANCE(4);
+      if (lookahead != 0) ADVANCE(8);
+      END_STATE();
+    case 9:
+      ACCEPT_TOKEN(sym_content);
+      if (eof) ADVANCE(6);
+      if (lookahead == '<') ADVANCE(2);
+      if (('\t' <= lookahead && lookahead <= '\r') ||
+          lookahead == ' ') ADVANCE(7);
+      if (lookahead != 0) ADVANCE(8);
+      END_STATE();
+    case 10:
       ACCEPT_TOKEN(anon_sym_LT_PERCENT);
       END_STATE();
-    case 13:
+    case 11:
       ACCEPT_TOKEN(anon_sym_PERCENT_GT);
       END_STATE();
-    case 14:
+    case 12:
       ACCEPT_TOKEN(sym_template_content);
-      if (lookahead == '%') ADVANCE(9);
+      if (lookahead == '%') ADVANCE(5);
       if (('\t' <= lookahead && lookahead <= '\r') ||
-          lookahead == ' ') ADVANCE(14);
-      if (lookahead != 0) ADVANCE(15);
+          lookahead == ' ') ADVANCE(12);
+      if (lookahead != 0) ADVANCE(13);
       END_STATE();
-    case 15:
+    case 13:
       ACCEPT_TOKEN(sym_template_content);
-      if (lookahead == '%') ADVANCE(9);
-      if (lookahead != 0) ADVANCE(15);
+      if (lookahead == '%') ADVANCE(5);
+      if (lookahead != 0) ADVANCE(13);
       END_STATE();
     default:
       return false;
@@ -179,11 +178,11 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
 
 static const TSLexMode ts_lex_modes[STATE_COUNT] = {
   [0] = {.lex_state = 0},
-  [1] = {.lex_state = 0},
-  [2] = {.lex_state = 0},
-  [3] = {.lex_state = 0},
-  [4] = {.lex_state = 0},
-  [5] = {.lex_state = 14},
+  [1] = {.lex_state = 9},
+  [2] = {.lex_state = 9},
+  [3] = {.lex_state = 9},
+  [4] = {.lex_state = 9},
+  [5] = {.lex_state = 12},
   [6] = {.lex_state = 0},
   [7] = {.lex_state = 0},
 };
@@ -191,13 +190,11 @@ static const TSLexMode ts_lex_modes[STATE_COUNT] = {
 static const uint16_t ts_parse_table[LARGE_STATE_COUNT][SYMBOL_COUNT] = {
   [0] = {
     [ts_builtin_sym_end] = ACTIONS(1),
-    [sym_content] = ACTIONS(1),
     [anon_sym_LT_PERCENT] = ACTIONS(1),
     [anon_sym_PERCENT_GT] = ACTIONS(1),
   },
   [1] = {
     [sym_source_file] = STATE(6),
-    [sym__definition] = STATE(2),
     [sym_template] = STATE(2),
     [aux_sym_source_file_repeat1] = STATE(2),
     [ts_builtin_sym_end] = ACTIONS(3),
@@ -205,7 +202,6 @@ static const uint16_t ts_parse_table[LARGE_STATE_COUNT][SYMBOL_COUNT] = {
     [anon_sym_LT_PERCENT] = ACTIONS(7),
   },
   [2] = {
-    [sym__definition] = STATE(3),
     [sym_template] = STATE(3),
     [aux_sym_source_file_repeat1] = STATE(3),
     [ts_builtin_sym_end] = ACTIONS(9),
@@ -213,7 +209,6 @@ static const uint16_t ts_parse_table[LARGE_STATE_COUNT][SYMBOL_COUNT] = {
     [anon_sym_LT_PERCENT] = ACTIONS(7),
   },
   [3] = {
-    [sym__definition] = STATE(3),
     [sym_template] = STATE(3),
     [aux_sym_source_file_repeat1] = STATE(3),
     [ts_builtin_sym_end] = ACTIONS(13),
@@ -223,27 +218,28 @@ static const uint16_t ts_parse_table[LARGE_STATE_COUNT][SYMBOL_COUNT] = {
 };
 
 static const uint16_t ts_small_parse_table[] = {
-  [0] = 1,
-    ACTIONS(21), 3,
+  [0] = 2,
+    ACTIONS(23), 1,
+      anon_sym_LT_PERCENT,
+    ACTIONS(21), 2,
       ts_builtin_sym_end,
       sym_content,
-      anon_sym_LT_PERCENT,
-  [6] = 1,
-    ACTIONS(23), 1,
-      sym_template_content,
-  [10] = 1,
+  [8] = 1,
     ACTIONS(25), 1,
-      ts_builtin_sym_end,
-  [14] = 1,
+      sym_template_content,
+  [12] = 1,
     ACTIONS(27), 1,
+      ts_builtin_sym_end,
+  [16] = 1,
+    ACTIONS(29), 1,
       anon_sym_PERCENT_GT,
 };
 
 static const uint32_t ts_small_parse_table_map[] = {
   [SMALL_STATE(4)] = 0,
-  [SMALL_STATE(5)] = 6,
-  [SMALL_STATE(6)] = 10,
-  [SMALL_STATE(7)] = 14,
+  [SMALL_STATE(5)] = 8,
+  [SMALL_STATE(6)] = 12,
+  [SMALL_STATE(7)] = 16,
 };
 
 static const TSParseActionEntry ts_parse_actions[] = {
@@ -251,16 +247,17 @@ static const TSParseActionEntry ts_parse_actions[] = {
   [1] = {.entry = {.count = 1, .reusable = false}}, RECOVER(),
   [3] = {.entry = {.count = 1, .reusable = true}}, REDUCE(sym_source_file, 0, 0, 0),
   [5] = {.entry = {.count = 1, .reusable = true}}, SHIFT(2),
-  [7] = {.entry = {.count = 1, .reusable = true}}, SHIFT(5),
+  [7] = {.entry = {.count = 1, .reusable = false}}, SHIFT(5),
   [9] = {.entry = {.count = 1, .reusable = true}}, REDUCE(sym_source_file, 1, 0, 0),
   [11] = {.entry = {.count = 1, .reusable = true}}, SHIFT(3),
   [13] = {.entry = {.count = 1, .reusable = true}}, REDUCE(aux_sym_source_file_repeat1, 2, 0, 0),
   [15] = {.entry = {.count = 2, .reusable = true}}, REDUCE(aux_sym_source_file_repeat1, 2, 0, 0), SHIFT_REPEAT(3),
-  [18] = {.entry = {.count = 2, .reusable = true}}, REDUCE(aux_sym_source_file_repeat1, 2, 0, 0), SHIFT_REPEAT(5),
+  [18] = {.entry = {.count = 2, .reusable = false}}, REDUCE(aux_sym_source_file_repeat1, 2, 0, 0), SHIFT_REPEAT(5),
   [21] = {.entry = {.count = 1, .reusable = true}}, REDUCE(sym_template, 3, 0, 0),
-  [23] = {.entry = {.count = 1, .reusable = true}}, SHIFT(7),
-  [25] = {.entry = {.count = 1, .reusable = true}},  ACCEPT_INPUT(),
-  [27] = {.entry = {.count = 1, .reusable = true}}, SHIFT(4),
+  [23] = {.entry = {.count = 1, .reusable = false}}, REDUCE(sym_template, 3, 0, 0),
+  [25] = {.entry = {.count = 1, .reusable = true}}, SHIFT(7),
+  [27] = {.entry = {.count = 1, .reusable = true}},  ACCEPT_INPUT(),
+  [29] = {.entry = {.count = 1, .reusable = true}}, SHIFT(4),
 };
 
 #ifdef __cplusplus
